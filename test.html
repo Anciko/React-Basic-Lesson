@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            background-color: cadetblue;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        /********* Changing state and  Parent to Child pass through state ********/
+        class ShowInfo extends React.Component {
+            constructor() {
+                super();
+            }
+            render() {
+                return (
+                    <div>
+                        <h3>Name is {this.props.state.name} and age is {this.props.state.age} </h3>
+
+                        <button onClick={this.props.changeState}>Change Name</button>
+                    </div>
+                )
+            }
+        }
+        class App extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    name: "NCK",
+                    age: 21
+                }
+                this.changeState = this.changeState.bind(this);
+            }
+            changeState() {
+                this.setState(() => {
+                    return {
+                        name: "Changed name",
+                        age: 23
+                    }
+                })
+            }
+
+            render() {
+                return (
+                    <div>
+                        <ShowInfo state={this.state} changeState={this.changeState} />
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<App />, document.getElementById("app"));
+
+
+        // Functional  Component
+        // const Box = () => {
+        //     return(
+        //         <h1>Box Component</h1>
+        //     )
+        // }
+        // const App = () => {
+        //     return(
+        //         <div>
+        //             <Box></Box>
+        //             <h1> Hello React Component </h1>
+        //         </div>
+        //     )
+        // }
+        // ReactDOM.render(<App/>, document.getElementById("app"));
+
+        /*** Class Component */
+        // class Box extends React.Component {
+        //     render() {
+        //         return (
+        //             <h2 className="box">I am Box component</h2>
+        //         )
+        //     }
+        // }
+        // class App extends React.Component {
+        //     render() {
+        //         return (
+        //             <div>
+        //                 <h1>Hello React Component</h1>
+        //                 <Box />
+        //             </div>
+        //         )
+        //     }
+        // }
+        // ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="app">
+
+    </div>
+
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+    <!-- React cdn link -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        class ButtonAction extends React.Component {
+            constructor() {
+                super();
+            }
+            render() {
+                return(
+                    <div className="row justify-content-center mt-2">
+                        <button onClick={this.props.add} className="btn btn-dark btn-sm">+</button>
+                        <button onClick={this.props.reduce} className="btn btn-dark btn-sm">-</button>
+                    </div>
+                )
+            }
+        }
+
+        class App extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    count : 25
+                }
+                this.add = this.add.bind(this);
+                this.reduce = this.reduce.bind(this);
+            }
+            add() {
+                this.setState(() => {
+                    return {
+                        count : this.state.count < 100 ? this.state.count + 25 : this.state.count
+                    }
+                })
+            }
+            reduce() {
+                this.setState(() => {
+                    return {
+                        count : this.state.count > 0 ? this.state.count - 25 : this.state.count
+                    }
+                })
+            }
+            render() {
+                return (
+                    <div>
+                        <div className="col-md-6 offset-md-2 mt-5">
+                            <div className="progress">
+                                <div className={`progress-bar  w-${this.state.count} `} role="progressbar" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100" ></div>
+                            </div>
+                            <ButtonAction add={this.add} reduce={this.reduce} />
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+
+</html>
